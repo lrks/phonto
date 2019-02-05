@@ -56,3 +56,4 @@ build-iPhoneSimulator/
 /doc/
 
 .DS_Store
+dataset/

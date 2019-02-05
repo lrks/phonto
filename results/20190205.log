@@ -1,0 +1,37 @@
+root@2a3973eee969:/work# python train.py
+Using TensorFlow backend.
+/usr/local/lib/python3.5/dist-packages/keras_applications/mobilenet.py:208: UserWarning: MobileNet shape is undefined. Weights for input shape (224, 224) will be loaded.
+warnings.warn('MobileNet shape is undefined.'
+2019-02-04 15:08:36.049820: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+Downloading data from https://github.com/fchollet/deep-learning-models/releases/download/v0.6/mobilenet_1_0_224_tf_no_top.h5
+17227776/17225924 [==============================] - 4s 0us/step
+train.py:39: UserWarning: Update your `Model` call to the Keras 2 API: `Model(inputs=Tensor("in..., outputs=Tensor("se...)`
+model = Model(input=mobilenet.input, output=top_model(mobilenet.output))
+Found 2000 images belonging to 2 classes.
+Found 800 images belonging to 2 classes.
+train.py:90: UserWarning: The semantics of the Keras 2 argument `steps_per_epoch` is not the same as the Keras 1 argument `samples_per_epoch`. `steps_per_epoch` is the number of batches to draw from the generator at each epoch. Basically steps_per_epoch = samples_per_epoch/batch_size. Similarly `nb_val_samples`->`validation_steps` and `val_samples`->`steps` arguments have changed. Update your method calls accordingly.
+nb_val_samples=nb_validation_samples)
+train.py:90: UserWarning: Update your `fit_generator` call to the Keras 2 API: `fit_generator(<keras_pre..., epochs=10, validation_steps=400, steps_per_epoch=31, validation_data=<keras_pre...)`
+nb_val_samples=nb_validation_samples)
+Epoch 1/10
+31/31 [==============================] - 1021s 33s/step - loss: 0.5395 - acc: 0.8448 - val_loss: 0.1780 - val_acc: 0.9463
+Epoch 2/10
+31/31 [==============================] - 903s 29s/step - loss: 0.3172 - acc: 0.9183 - val_loss: 0.1386 - val_acc: 0.9550
+Epoch 3/10
+30/31 [============================>.] - ETA: 5s - loss: 0.2099 - acc: 0.9260
+31/31 [==============================] - 970s 31s/step - loss: 0.2038 - acc: 0.9284 - val_loss: 0.1407 - val_acc: 0.9613
+Epoch 4/10
+31/31 [==============================] - 934s 30s/step - loss: 0.1385 - acc: 0.9526 - val_loss: 0.1181 - val_acc: 0.9613
+Epoch 5/10
+31/31 [==============================] - 904s 29s/step - loss: 0.1161 - acc: 0.9586 - val_loss: 0.1197 - val_acc: 0.9575
+Epoch 6/10
+30/31 [============================>.] - ETA: 7s - loss: 0.0909 - acc: 0.9635
+31/31 [==============================] - 69009s 2226s/step - loss: 0.0896 - acc: 0.9647 - val_loss: 0.1046 - val_acc: 0.9675
+Epoch 7/10
+31/31 [==============================] - 846s 27s/step - loss: 0.0853 - acc: 0.9657 - val_loss: 0.1184 - val_acc: 0.9637
+Epoch 8/10
+31/31 [==============================] - 849s 27s/step - loss: 0.1081 - acc: 0.9597 - val_loss: 0.1150 - val_acc: 0.9613
+Epoch 9/10
+31/31 [==============================] - 867s 28s/step - loss: 0.0876 - acc: 0.9768 - val_loss: 0.1023 - val_acc: 0.9625
+Epoch 10/10
+31/31 [==============================] - 853s 28s/step - loss: 0.0878 - acc: 0.9657 - val_loss: 0.0911 - val_acc: 0.9688
