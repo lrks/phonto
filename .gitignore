@@ -57,3 +57,7 @@ build-iPhoneSimulator/
 
 .DS_Store
 dataset/
+results/*.json
+results/*;export.h5
+phonto
+phonto.bin

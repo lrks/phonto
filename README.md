@@ -18,16 +18,14 @@
 
 ## Datasets
 - train
-  - photo: 秘伝の写真500枚くらい + [COCO Dataset](http://cocodataset.org/)(2017)からランダムに選択した1500枚くらい = 計2000枚
-  - non-photo: 秘伝のイラストとスクリーンショット2000枚
+  - photo: 秘伝の写真500枚くらい + [COCO Dataset](http://cocodataset.org/)(2017)からランダムに選択した500枚くらい = 計1000枚
+  - non-photo: 秘伝のイラストとスクリーンショット1000枚
 - validation
   - photo: 秘伝の写真50枚くらい + COCO Datasetからtrain用の画像を除いてランダムに抽出した350枚くらい = 計400枚
   - non-photo: train用に収まり切らなかった秘伝のイラストとスクリーンショット400枚
 
 
 ## TODO
-- C++から使えるようにする
-  - https://github.com/Dobiasd/frugally-deep
 - 秘伝の画像を使わないようにする
   - 少なくとも実写画像は容易に用意できる
 - もう少し細かく分類する
@@ -39,8 +37,11 @@
   - 写実的なイラスト？
   - 絵画？
 
+
+## 開発方法
 ```
 $ cd docker/
 $ make build
 $ make run
+$ make release
 ```
