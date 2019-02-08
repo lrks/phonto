@@ -1,6 +1,16 @@
 # Phonto
 - ほんとにPhoto?
 - 写真orイラスト判定
+```
+root@5ced14b7ed0c:/work# ./phonto dataset/test/*.*
+000 (2).jpg:non-photo
+000000003501.jpg:photo
+000000004495.jpg:photo
+002 (28).jpg:non-photo
+02-resize.jpg:non-photo
+02.jpg:non-photo
+03 (3).jpg:non-photo
+```
 
 
 ## 試したこと
@@ -14,7 +24,8 @@
 - 非力なサーバで動かしたい、MobileNetでFine tuningしてみる
   - いけたようだ
   - よくわからんが、まぁ動いているからヨシ！
-
+- C++から呼べるようにした
+  - Releaseに学習済みモデルを含むバイナリを置く
 
 ## Datasets
 - train
@@ -23,7 +34,6 @@
 - validation
   - photo: 秘伝の写真50枚くらい + COCO Datasetからtrain用の画像を除いてランダムに抽出した350枚くらい = 計400枚
   - non-photo: train用に収まり切らなかった秘伝のイラストとスクリーンショット400枚
-
 
 ## TODO
 - 秘伝の画像を使わないようにする
@@ -37,7 +47,6 @@
   - 写実的なイラスト？
   - 絵画？
 
-
 ## 開発方法
 ```
 $ cd docker/
@@ -45,3 +54,22 @@ $ make build
 $ make run
 $ make release
 ```
+```
+phonto.py
+- phonto.py train ... training
+- phonto.py predict ... test
+- phonto.py export ... export model
+
+phonto.cpp
+- ↓を利用してC++でKerasモデルを使うプログラム
+- https://github.com/Dobiasd/frugally-deep/tree/master/include/fdeep
+
+phonto.sh
+- phonto.pyで作ったモデル、phonto.cppで作ったプログラムを悪魔合体するスクリプト
+```
+
+## 実行環境に必要なもの
+- ImageMagick
+  - ppm(P6)が作れること
+- base64コマンド
+- gzipコマンド
