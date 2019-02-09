@@ -26,4 +26,5 @@ RUN mv frugally-deep-master frugally-deep
 RUN cd frugally-deep && mkdir -p build && cd build && cmake .. && make && sudo make install && cd /
 RUN rm -f master.zip
 
+RUN apt install -y vim zopfli
 WORKDIR /work
