@@ -5,7 +5,7 @@ import numpy as np
 from keras.applications.mobilenet import MobileNet
 from keras.preprocessing.image import ImageDataGenerator
 from keras.models import Sequential, Model
-from keras.layers import Input, Activation, Dropout, Flatten, Dense
+from keras.layers import Input, Activation, Dropout, Dense, GlobalAveragePooling2D
 from keras.preprocessing import image
 from keras import optimizers
 
@@ -23,7 +23,7 @@ class Phonto:
         input_tensor = Input(shape=(self.img_width, self.img_height, 3))
         mobilenet = MobileNet(include_top=False, weights='imagenet', input_tensor=input_tensor)
         top_model = Sequential()
-        top_model.add(Flatten(input_shape=mobilenet.output_shape[1:]))
+        top_model.add(GlobalAveragePooling2D(input_shape=mobilenet.output_shape[1:]))
         top_model.add(Dense(256, activation='relu'))
         top_model.add(Dropout(0.5))
         top_model.add(Dense(self.nb_classes, activation='softmax'))
@@ -37,7 +37,7 @@ class Phonto:
     def train(self, train_data, validation_data, batch_size, nb_epoch):
         train_data_dir = train_data[0]
         nb_train_samples = train_data[1]
-        validation_data_dir = validaton_data[0]
+        validation_data_dir = validation_data[0]
         nb_validation_samples = validation_data[1]
 
         def image_generator():
@@ -71,13 +71,16 @@ class Phonto:
         self.__compile_model(mobilenet_model)
         train_generator, validation_generator = image_generator()
 
-        history = mobilenet_model.fit_generator(
-            train_generator,
-            samples_per_epoch=nb_train_samples,
-            nb_epoch=nb_epoch,
-            validation_data=validation_generator,
-            nb_val_samples=nb_validation_samples)
-        mobilenet_model.save_weights(os.path.join(self.result_dir, self.save_filename))
+        for i in range(nb_epoch):
+            history = mobilenet_model.fit_generator(
+                train_generator,
+                samples_per_epoch=nb_train_samples,
+                initial_epoch=i,
+                epochs=i+1,
+                validation_data=validation_generator,
+                nb_val_samples=nb_validation_samples)
+            mobilenet_model.save_weights(os.path.join(self.result_dir, self.save_filename))
+            mobilenet_model.save_weights(os.path.join(self.result_dir, 'epoch%d-%s' % (i, self.save_filename)))
 
     def predict(self, test_data_dir):
         model = self.__load_model()
@@ -117,7 +120,7 @@ if __name__ == '__main__':
         train_data = ['dataset/train', 1000]
         validation_data = ['dataset/validation', 400]
         batch_size = 32
-        nb_epoch = 10
+        nb_epoch = 50
         phonto.train(train_data, validation_data, batch_size, nb_epoch)
     elif sys.argv[1] == 'predict':
         test_data_dir = 'dataset/test'

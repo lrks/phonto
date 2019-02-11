@@ -1,7 +1,7 @@
 .dat*
 .DS_Store
 dataset/
-results/*.json
-results/*;export.h5
+results/
 phonto
 phonto.bin
+.*.swp
